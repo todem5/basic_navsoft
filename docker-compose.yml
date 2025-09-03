@@ -2,8 +2,27 @@ version: '2.1'
 services:
   php:
     image: yiisoftware/yii2-php:8.2-apache
-    volumes:
-      - ~/.composer-docker/cache:/root/.composer/cache:delegated
-      - ./:/app:delegated
     ports:
-      - '8001:80'
+      - "8001:80"
+    networks:
+      - yii
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: yii
+      MYSQL_DATABASE: yii
+      MYSQL_USER: yii
+      MYSQL_PASSWORD: yii
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - yii
+
+networks:
+  yii:
+
+volumes:
+  db_data:
