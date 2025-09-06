@@ -4,6 +4,8 @@ services:
     image: yiisoftware/yii2-php:8.2-apache
     ports:
       - "8001:80"
+    volumes:
+      - ./ :/app
     networks:
       - yii
     depends_on:
